@@ -100,7 +100,7 @@
       });
 
       haze.style.transform = `translate3d(${pointerX * 14}px, ${-scroll * 0.03 + pointerY * 10}px, 0) scale(${1 + gust * 0.03})`;
-      haze.style.opacity = String(Math.min(1, 0.85 + gust * 0.15));
+      haze.style.opacity = String(Math.min(1, 0.5 + gust * 0.2));
 
       if (particles) {
         particles.style.transform = `translate3d(${pointerX * 26}px, ${-scroll * 0.07 + pointerY * 18}px, 0)`;
