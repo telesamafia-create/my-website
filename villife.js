@@ -61,5 +61,57 @@
     });
   }
 
+  const haze = document.querySelector(".mist-haze");
+  const particles = document.querySelector(".mist-particles");
+  const mistLayers = Array.from(document.querySelectorAll(".mist-layer"));
+
+  if (haze && mistLayers.length && !calm) {
+    const depth = [0.55, 0.85, 1.15, 1.45];
+    const baseOpacity = mistLayers.map(layer => Number.parseFloat(getComputedStyle(layer).opacity) || 0.5);
+    let pointerX = 0;
+    let pointerY = 0;
+    let targetX = 0;
+    let targetY = 0;
+    let lastScroll = window.scrollY;
+    let velocity = 0;
+
+    window.addEventListener("pointermove", event => {
+      targetX = (event.clientX / window.innerWidth - 0.5) * 2;
+      targetY = (event.clientY / window.innerHeight - 0.5) * 2;
+    }, { passive: true });
+
+    const frame = () => {
+      const time = performance.now() / 1000;
+      const scroll = window.scrollY;
+      velocity = velocity * 0.88 + (scroll - lastScroll) * 0.12;
+      lastScroll = scroll;
+      pointerX += (targetX - pointerX) * 0.05;
+      pointerY += (targetY - pointerY) * 0.05;
+      const gust = Math.min(1, Math.abs(velocity) / 55);
+
+      mistLayers.forEach((layer, index) => {
+        const factor = depth[index] || 1;
+        const driftX = Math.sin(time * (0.09 + index * 0.017) + index) * 70 * factor;
+        const driftY = Math.cos(time * (0.07 + index * 0.021) + index) * 44 * factor;
+        const push = velocity * 0.16 * factor;
+        layer.style.transform =
+          `translate3d(${driftX + pointerX * 46 * factor + push}px, ${driftY + pointerY * 34 * factor - scroll * 0.05 * factor}px, 0) scale(${1 + gust * 0.06})`;
+        layer.style.opacity = String(Math.min(0.92, baseOpacity[index] + gust * 0.22));
+      });
+
+      haze.style.transform = `translate3d(${pointerX * 14}px, ${-scroll * 0.03 + pointerY * 10}px, 0) scale(${1 + gust * 0.03})`;
+      haze.style.opacity = String(Math.min(1, 0.82 + gust * 0.18));
+
+      if (particles) {
+        particles.style.transform = `translate3d(${pointerX * 26}px, ${-scroll * 0.07 + pointerY * 18}px, 0)`;
+        particles.style.opacity = String(Math.min(0.85, 0.5 + gust * 0.3));
+      }
+
+      requestAnimationFrame(frame);
+    };
+
+    requestAnimationFrame(frame);
+  }
+
   applyLanguage();
 })();
