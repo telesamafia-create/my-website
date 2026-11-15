@@ -53,9 +53,9 @@ img { max-width: 100%; }
 
 .mist { position: fixed; z-index: 45; inset: 0; overflow: hidden; pointer-events: none; }
 .mist-haze { position: absolute; inset: -6%; backdrop-filter: blur(1.4px) saturate(1.04); background: linear-gradient(180deg, rgba(255, 255, 255, .12), rgba(255, 255, 255, .26)); will-change: transform, opacity; }
-.mist-fog { position: absolute; inset: -12%; backdrop-filter: blur(6px) saturate(1.05); background: rgba(255, 255, 255, .62); -webkit-mask-image: var(--fog); mask-image: var(--fog); -webkit-mask-size: cover; mask-size: cover; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; mask-mode: luminance; -webkit-mask-source-type: luminance; will-change: transform, opacity; }
-.mist-fog-a { --fog: url(/fog-1.webp); opacity: .9; }
-.mist-fog-b { --fog: url(/fog-2.webp); opacity: .62; }
+.mist-fog { position: absolute; inset: -12%; backdrop-filter: blur(11px) saturate(1.03); background: linear-gradient(104deg, rgba(197, 211, 235, .62) 0%, rgba(224, 233, 248, .46) 24%, rgba(240, 244, 251, .34) 50%, rgba(224, 233, 248, .46) 76%, rgba(197, 211, 235, .62) 100%); -webkit-mask-image: var(--fog); mask-image: var(--fog); -webkit-mask-size: cover; mask-size: cover; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; mask-mode: luminance; -webkit-mask-source-type: luminance; will-change: transform, opacity; }
+.mist-fog-a { --fog: url(/fog-1.webp); opacity: .95; }
+.mist-fog-b { --fog: url(/fog-2.webp); opacity: .8; background: linear-gradient(90deg, rgba(193, 208, 234, .74) 0%, rgba(220, 230, 247, .5) 9%, rgba(236, 241, 250, .22) 20%, rgba(236, 241, 250, .18) 80%, rgba(220, 230, 247, .5) 91%, rgba(193, 208, 234, .74) 100%); backdrop-filter: blur(14px) saturate(1.02); }
 .mist-particles { position: absolute; inset: -12%; background-image: radial-gradient(circle at 22% 28%, rgba(255, 255, 255, .9) 0 1px, rgba(255, 255, 255, 0) 2.4px), radial-gradient(circle at 68% 62%, rgba(255, 255, 255, .8) 0 1.6px, rgba(255, 255, 255, 0) 3px), radial-gradient(circle at 44% 84%, rgba(226, 236, 255, .85) 0 1.1px, rgba(255, 255, 255, 0) 2.6px), radial-gradient(circle at 86% 18%, rgba(255, 246, 232, .8) 0 1.3px, rgba(255, 255, 255, 0) 3px); background-size: 190px 190px, 260px 260px, 330px 330px, 410px 410px; opacity: .42; mix-blend-mode: soft-light; will-change: transform; animation: particles-drift 64s linear infinite; }
 @keyframes particles-drift { from { background-position: 0 0, 0 0, 0 0, 0 0; } to { background-position: -190px -260px, -260px -190px, -190px -260px, -260px -190px; } }
 
