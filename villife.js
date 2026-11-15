@@ -63,7 +63,7 @@
 
   const haze = document.querySelector(".mist-haze");
   const particles = document.querySelector(".mist-particles");
-  const mistLayers = Array.from(document.querySelectorAll(".mist-layer"));
+  const mistLayers = Array.from(document.querySelectorAll(".mist-fog"));
 
   if (haze && mistLayers.length && !calm) {
     const depth = [0.55, 0.85, 1.15, 1.45];
@@ -96,15 +96,15 @@
         const push = velocity * 0.16 * factor;
         layer.style.transform =
           `translate3d(${driftX + pointerX * 46 * factor + push}px, ${driftY + pointerY * 34 * factor - scroll * 0.05 * factor}px, 0) scale(${1 + gust * 0.06})`;
-        layer.style.opacity = String(Math.min(0.92, baseOpacity[index] + gust * 0.22));
+        layer.style.opacity = String(Math.min(0.95, baseOpacity[index] + gust * 0.18));
       });
 
       haze.style.transform = `translate3d(${pointerX * 14}px, ${-scroll * 0.03 + pointerY * 10}px, 0) scale(${1 + gust * 0.03})`;
-      haze.style.opacity = String(Math.min(1, 0.82 + gust * 0.18));
+      haze.style.opacity = String(Math.min(1, 0.85 + gust * 0.15));
 
       if (particles) {
         particles.style.transform = `translate3d(${pointerX * 26}px, ${-scroll * 0.07 + pointerY * 18}px, 0)`;
-        particles.style.opacity = String(Math.min(0.85, 0.5 + gust * 0.3));
+        particles.style.opacity = String(Math.min(0.85, 0.48 + gust * 0.28));
       }
 
       requestAnimationFrame(frame);
