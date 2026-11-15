@@ -249,5 +249,23 @@
     </a>
     <span>© <span id="year"></span> VILLIFE</span>
   </footer>
+  <script>
+    (() => {
+      const lang = localStorage.getItem("villife-site-language") === "ru" ? "ru" : "en";
+      document.documentElement.lang = lang;
+      document.querySelectorAll("[data-en][data-ru]").forEach(element => {
+        element.innerHTML = element.dataset[lang];
+      });
+      const button = document.querySelector(".language-switch");
+      if (button) {
+        button.textContent = lang === "en" ? "RU" : "EN";
+        button.setAttribute("aria-label", lang === "en" ? "Switch to Russian" : "Switch to English");
+      }
+      document.title = lang === "en" ? "Villife — Music player for Windows" : "Villife — Музыкальный плеер для Windows";
+      document.querySelectorAll(".manifesto-text, .manifesto-side, .feature-card, .window-copy, .windows-art, .about-body, .closing-section").forEach(element => {
+        element.classList.add("reveal");
+      });
+    })();
+  </script>
 </body>
 </html>
