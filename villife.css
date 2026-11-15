@@ -396,3 +396,5 @@ h1, h2, h3, p { margin-top: 0; }
 .platform-button { display: inline-flex; min-height: 46px; align-items: center; gap: 10px; padding: 0 20px; border: 1px solid rgba(25, 27, 32, .12); border-radius: 999px; background: rgba(255, 255, 255, .88); color: var(--ink); font-size: 13px; font-weight: 500; box-shadow: 0 14px 30px -22px rgba(30, 36, 54, .6); transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s, border-color .35s; }
 .platform-button:hover { border-color: var(--accent-soft); transform: translateY(-3px); box-shadow: 0 20px 38px -24px rgba(30, 36, 54, .7); }
 .button-primary .icon-platform { width: 14px; height: 14px; }
+.icon-platform-img { width: 16px; height: 19px; flex: none; object-fit: contain; }
+.platform-button .icon-platform-img { width: 15px; height: 18px; }
