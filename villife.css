@@ -479,3 +479,6 @@ html.theme-dark { color-scheme: dark; --paper: #14161a; --ink: #f1f2f4; --ink-so
 .export-list li { margin-bottom: 7px; }
 .export-list b { color: var(--ink); font-weight: 600; }
 .export-important { margin: 16px 0; padding: 12px; border-left: 2px solid var(--accent); border-radius: 0 10px 10px 0; background: rgba(93, 124, 242, .08); color: var(--ink-soft); font-size: 11.5px; line-height: 1.6; }
+.profile-dialog { max-height: none; overflow: visible; }
+.profile-panel, .export-rules { scrollbar-width: none; -ms-overflow-style: none; }
+.profile-panel::-webkit-scrollbar, .export-rules::-webkit-scrollbar { display: none; }
