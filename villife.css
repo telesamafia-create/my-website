@@ -483,7 +483,7 @@ html.theme-dark { color-scheme: dark; --paper: #14161a; --ink: #f1f2f4; --ink-so
 .profile-panel, .export-rules { scrollbar-width: none; -ms-overflow-style: none; }
 .profile-panel::-webkit-scrollbar, .export-rules::-webkit-scrollbar { display: none; }
 .profile-back { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 18px; padding: 9px 16px; border: 1px solid var(--line); border-radius: 999px; background: var(--glass); color: var(--ink); font-size: 12px; font-weight: 600; transition: border-color .25s ease, background .25s ease, transform .25s ease; }
-.profile-back::before { content: "←"; font-size: 15px; line-height: 1; }
+
 .profile-back:hover { border-color: var(--accent); background: var(--accent); color: #fff; transform: translateX(-2px); }
 .profile-dialog { padding: 24px; }
 .profile-tabs { margin: 0 -24px 4px; padding: 0 24px; }
