@@ -503,18 +503,3 @@ html.theme-dark .site-header { background: var(--glass); }
 html.theme-dark .header-link { color: var(--ink-soft); }
 html.theme-dark .hero-shot { filter: drop-shadow(0 30px 50px rgba(0, 0, 0, .5)); }
 html.theme-dark .export-important { background: rgba(123, 150, 255, .1); border-color: var(--accent); }
-
-html.theme-dark body { background: #14161a; }
-html.theme-dark .sky, html.theme-dark .mist { filter: brightness(.3) saturate(.65); }
-html.theme-dark .hero h1 { text-shadow: 0 2px 30px rgba(0, 0, 0, .75); }
-html.theme-dark .hero-description { color: var(--ink-soft); }
-html.theme-dark .site-header { background: rgba(28, 31, 38, .82); backdrop-filter: blur(20px); }
-html.theme-dark .site-header .brand, html.theme-dark .desktop-nav a { color: var(--ink); }
-html.theme-dark .language-switch, html.theme-dark .header-link { color: var(--ink-soft); }
-html.theme-dark .manifesto, html.theme-dark .feature-section, html.theme-dark .windows-section, html.theme-dark .about-section, html.theme-dark .closing-section, html.theme-dark .site-footer { color: var(--ink); }
-html.theme-dark .feature-card, html.theme-dark .window-copy, html.theme-dark .about-body { background: rgba(255, 255, 255, .04); border-color: var(--line); }
-html.theme-dark .section-heading h2 span, html.theme-dark .window-copy h2 span, html.theme-dark .about-body h2 span { color: var(--faint); }
-html.theme-dark .closing-section { background: rgba(0, 0, 0, .35); }
-html.theme-dark .platform-button { background: rgba(255, 255, 255, .07); border-color: var(--line); color: var(--ink); }
-html.theme-dark .platform-button:hover { background: rgba(255, 255, 255, .12); }
-
