@@ -113,5 +113,61 @@
     requestAnimationFrame(frame);
   }
 
+  const releaseBase = "https://github.com/whatawhere/villife/releases/latest/download/";
+  const downloads = {
+    windows: {
+      href: releaseBase + "VillifeSetup.exe",
+      icon: "/windows11.svg",
+      alt: "Windows",
+      en: "Download for Windows",
+      ru: "Скачать для Windows"
+    },
+    mac: {
+      href: releaseBase + "Villife-macOS-arm64.dmg",
+      icon: "/apple.svg",
+      alt: "macOS",
+      en: "Download for macOS",
+      ru: "Скачать для macOS"
+    },
+    linux: {
+      href: releaseBase + "Villife-linux-x64.AppImage",
+      icon: "/tux.svg",
+      alt: "Linux",
+      en: "Download for Linux",
+      ru: "Скачать для Linux"
+    }
+  };
+
+  function detectPlatform() {
+    const ua = navigator.userAgent;
+    if (/Mac|iPhone|iPad|iPod/i.test(ua)) return "mac";
+    if (/Linux|X11/i.test(ua)) return "linux";
+    return "windows";
+  }
+
+  const platform = detectPlatform();
+  const chosen = downloads[platform];
+  const heroButton = document.querySelector(".hero-actions .button-primary");
+
+  if (heroButton) {
+    heroButton.href = chosen.href;
+    const icon = heroButton.querySelector("img");
+    const label = heroButton.querySelector("span");
+    if (icon) {
+      icon.src = chosen.icon;
+      icon.alt = chosen.alt;
+    }
+    if (label) {
+      label.dataset.en = chosen.en;
+      label.dataset.ru = chosen.ru;
+    }
+  }
+
+  const platformButtons = document.querySelector(".platform-buttons");
+  if (platformButtons) {
+    const current = platformButtons.querySelector(`[data-platform="${platform}"]`);
+    if (current) platformButtons.prepend(current);
+  }
+
   applyLanguage();
 })();
