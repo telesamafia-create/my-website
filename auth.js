@@ -33,7 +33,7 @@ async function villifeMicrosoftSignIn() {
     client_id: VILLIFE_CLIENT_ID,
     response_type: "code",
     redirect_uri: VILLIFE_REDIRECT,
-    scope: "openid profile email",
+    scope: "openid profile email User.Read",
     state: state,
     nonce: nonce,
     code_challenge: villifeBase64url(new Uint8Array(digest)),
@@ -80,8 +80,27 @@ async function villifeMicrosoftCallback() {
       email: claims.email || claims.preferred_username || "",
       birthDate: "",
       provider: "microsoft",
-      method: "microsoft"
+      method: "microsoft",
+      photo: ""
     };
+    if (tokens.access_token) {
+      try {
+        const photo = await fetch("https://graph.microsoft.com/v1.0/me/photo/$value", {
+          headers: { Authorization: "Bearer " + tokens.access_token }
+        });
+        if (photo.ok) {
+          const blob = await photo.blob();
+          profile.photo = await new Promise(resolve => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = () => resolve("");
+            reader.readAsDataURL(blob);
+          });
+        }
+      } catch (failure) {
+        profile.photo = "";
+      }
+    }
     localStorage.setItem("villife_signup", JSON.stringify(profile));
     sessionStorage.removeItem("villife_pkce");
     sessionStorage.removeItem("villife_state");
