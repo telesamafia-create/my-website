@@ -43,8 +43,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/villife.css?v=20261121-17">
-  <script src="/villife.js?v=20261121-17" defer></script>
+  <link rel="stylesheet" href="/villife.css?v=20261121-18">
+  <script src="/villife.js?v=20261121-18" defer></script>
 </head>
 <body>
   <div class="sky" aria-hidden="true">
@@ -365,7 +365,7 @@
   <script>
     (() => {
       const raw = localStorage.getItem("villife_signup");
-      if (!raw || localStorage.getItem("villife_session") === "inactive") return;
+      if (!raw) return;
       try {
         const profile = JSON.parse(raw);
         if (!profile || !profile.name) return;
