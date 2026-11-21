@@ -44,6 +44,10 @@
     .signup-done span { color: var(--ink-soft); font-size: 14px; }
     .signup-form.is-hidden { display: none; }
     .signup-done.is-visible { display: block; }
+    .signup-auth.is-hidden { display: none; }
+    .signup-avatar { display: grid; width: 76px; height: 76px; margin: 18px auto 14px; place-items: center; border-radius: 50%; background: var(--accent); color: #fff; font-family: var(--display); font-size: 28px; font-weight: 600; letter-spacing: -.02em; }
+    .signup-done span { display: block; margin-top: 4px; }
+    .signup-done .signup-submit { max-width: 200px; margin: 22px auto 0; }
     .signup-social { display: grid; gap: 8px; margin-top: 20px; }
     .signup-separator { display: flex; align-items: center; gap: 12px; margin: 22px 0 16px; color: var(--faint); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
     .signup-separator::before, .signup-separator::after { height: 1px; flex: 1; content: ""; background: var(--line); }
@@ -63,35 +67,39 @@
         <div class="signup-eyebrow">Villife account</div>
         <h1 class="signup-title">Sign in</h1>
         <p class="signup-subtitle">Welcome back. Enter the email or username from your profile.</p>
-        <form class="signup-form" id="signin-form">
-          <label class="signup-field">
-            <span>Email or username</span>
-            <input id="signin-login" type="text" autocomplete="username" placeholder="name@gmail.com" required>
-          </label>
-          <button class="button button-primary signup-submit" type="submit">Sign in</button>
-          <p class="signup-error" id="signin-error"></p>
-          <p class="signup-note">Your profile is stored in this browser.</p>
-        </form>
-        <div class="signup-separator">or continue with</div>
-        <div class="signup-social">
-          <button class="signup-social-button" type="button" data-provider="microsoft" data-label="Microsoft">
-            <svg viewBox="0 0 23 23" aria-hidden="true"><path fill="#f25022" d="M0 0h10.5v10.5H0z"/><path fill="#7fba00" d="M12.5 0H23v10.5H12.5z"/><path fill="#00a4ef" d="M0 12.5h10.5V23H0z"/><path fill="#ffb900" d="M12.5 12.5H23V23H12.5z"/></svg>
-            Log in with Microsoft
-          </button>
-          <button class="signup-social-button" type="button" data-label="Apple">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
-            Log in with Apple
-          </button>
-          <button class="signup-social-button" type="button" data-label="Gmail">
-            <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-            Log in with Gmail
-          </button>
+        <div class="signup-auth" id="signin-auth">
+          <form class="signup-form" id="signin-form">
+            <label class="signup-field">
+              <span>Email or username</span>
+              <input id="signin-login" type="text" autocomplete="username" placeholder="name@gmail.com" required>
+            </label>
+            <button class="button button-primary signup-submit" type="submit">Sign in</button>
+            <p class="signup-error" id="signin-error"></p>
+            <p class="signup-note">Your profile is stored in this browser.</p>
+          </form>
+          <div class="signup-separator">or continue with</div>
+          <div class="signup-social">
+            <button class="signup-social-button" type="button" data-provider="microsoft" data-label="Microsoft">
+              <svg viewBox="0 0 23 23" aria-hidden="true"><path fill="#f25022" d="M0 0h10.5v10.5H0z"/><path fill="#7fba00" d="M12.5 0H23v10.5H12.5z"/><path fill="#00a4ef" d="M0 12.5h10.5V23H0z"/><path fill="#ffb900" d="M12.5 12.5H23V23H12.5z"/></svg>
+              Log in with Microsoft
+            </button>
+            <button class="signup-social-button" type="button" data-label="Apple">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+              Log in with Apple
+            </button>
+            <button class="signup-social-button" type="button" data-label="Gmail">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+              Log in with Gmail
+            </button>
+          </div>
+          <p class="signup-error" id="social-status"></p>
         </div>
-        <p class="signup-error" id="social-status"></p>
         <div class="signup-done" id="signin-done">
           <div class="signup-eyebrow">Villife account</div>
-          <strong>Welcome back</strong>
+          <div class="signup-avatar" id="signin-avatar"></div>
+          <strong id="signin-name"></strong>
           <span id="signin-done-text"></span>
+          <button class="button button-quiet signup-submit" id="signout" type="button">Sign out</button>
         </div>
         <p class="signup-foot">No account yet? <a href="/signup/">Sign up</a></p>
       </div>
@@ -102,6 +110,22 @@
     const form = document.getElementById("signin-form");
     const error = document.getElementById("signin-error");
     const done = document.getElementById("signin-done");
+    const auth = document.getElementById("signin-auth");
+
+    function villifeInitials(name) {
+      const parts = String(name || "").trim().split(/\s+/).filter(Boolean);
+      if (!parts.length) return "?";
+      return (parts.length > 1 ? parts[0][0] + parts[1][0] : parts[0].slice(0, 2)).toLocaleUpperCase();
+    }
+
+    function villifeShowProfile(profile) {
+      auth.classList.add("is-hidden");
+      done.classList.add("is-visible");
+      document.getElementById("signin-avatar").textContent = villifeInitials(profile.name || profile.username);
+      document.getElementById("signin-name").textContent = profile.name || profile.username;
+      document.getElementById("signin-done-text").textContent = profile.email || "";
+    }
+
     form.addEventListener("submit", event => {
       event.preventDefault();
       const login = document.getElementById("signin-login").value.trim().toLocaleLowerCase();
@@ -118,15 +142,14 @@
         return;
       }
       error.textContent = "";
-      form.classList.add("is-hidden");
-      done.classList.add("is-visible");
-      document.getElementById("signin-done-text").textContent = profile.name + " · " + profile.email;
+      villifeShowProfile(profile);
     });
-    function villifeShowProfile(profile) {
-      form.classList.add("is-hidden");
-      done.classList.add("is-visible");
-      document.getElementById("signin-done-text").textContent = profile.name + " · " + profile.email;
-    }
+
+    document.getElementById("signout").addEventListener("click", () => {
+      localStorage.removeItem("villife_signup");
+      location.href = "/signin/";
+    });
+
     document.querySelectorAll(".signup-social-button").forEach(button => {
       button.addEventListener("click", () => {
         if (button.dataset.provider === "microsoft") {
@@ -137,9 +160,23 @@
         document.getElementById("signin-login").focus();
       });
     });
+
     villifeMicrosoftCallback().then(result => {
-      if (result && result.name) villifeShowProfile(result);
-      else if (result && result.error) document.getElementById("social-status").textContent = "Microsoft sign-in failed: " + result.error;
+      if (result && result.name) {
+        villifeShowProfile(result);
+      } else if (result && result.error) {
+        document.getElementById("social-status").textContent = "Microsoft sign-in failed: " + result.error;
+      } else {
+        const raw = localStorage.getItem("villife_signup");
+        if (raw) {
+          try {
+            const profile = JSON.parse(raw);
+            if (profile && profile.name) villifeShowProfile(profile);
+          } catch (e) {
+            localStorage.removeItem("villife_signup");
+          }
+        }
+      }
     });
   </script>
 </body>
