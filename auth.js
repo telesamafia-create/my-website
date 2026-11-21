@@ -37,8 +37,7 @@ async function villifeMicrosoftSignIn() {
     state: state,
     nonce: nonce,
     code_challenge: villifeBase64url(new Uint8Array(digest)),
-    code_challenge_method: "S256",
-    prompt: "consent"
+    code_challenge_method: "S256"
   });
   location.href = VILLIFE_AUTHORITY + "/authorize?" + params.toString();
 }
