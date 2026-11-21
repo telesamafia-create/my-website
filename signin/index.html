@@ -74,7 +74,7 @@
         </form>
         <div class="signup-separator">or continue with</div>
         <div class="signup-social">
-          <button class="signup-social-button" type="button" data-label="Microsoft">
+          <button class="signup-social-button" type="button" data-provider="microsoft" data-label="Microsoft">
             <svg viewBox="0 0 23 23" aria-hidden="true"><path fill="#f25022" d="M0 0h10.5v10.5H0z"/><path fill="#7fba00" d="M12.5 0H23v10.5H12.5z"/><path fill="#00a4ef" d="M0 12.5h10.5V23H0z"/><path fill="#ffb900" d="M12.5 12.5H23V23H12.5z"/></svg>
             Log in with Microsoft
           </button>
@@ -97,6 +97,7 @@
       </div>
     </main>
   </div>
+  <script src="/auth.js"></script>
   <script>
     const form = document.getElementById("signin-form");
     const error = document.getElementById("signin-error");
@@ -121,11 +122,24 @@
       done.classList.add("is-visible");
       document.getElementById("signin-done-text").textContent = profile.name + " · " + profile.email;
     });
+    function villifeShowProfile(profile) {
+      form.classList.add("is-hidden");
+      done.classList.add("is-visible");
+      document.getElementById("signin-done-text").textContent = profile.name + " · " + profile.email;
+    }
     document.querySelectorAll(".signup-social-button").forEach(button => {
       button.addEventListener("click", () => {
+        if (button.dataset.provider === "microsoft") {
+          villifeMicrosoftSignIn();
+          return;
+        }
         document.getElementById("social-status").textContent = button.dataset.label + " sign-in needs OAuth keys — use the form above for now";
         document.getElementById("signin-login").focus();
       });
+    });
+    villifeMicrosoftCallback().then(result => {
+      if (result && result.name) villifeShowProfile(result);
+      else if (result && result.error) document.getElementById("social-status").textContent = "Microsoft sign-in failed: " + result.error;
     });
   </script>
 </body>
