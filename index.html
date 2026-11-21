@@ -43,8 +43,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/villife.css?v=20261121-11">
-  <script src="/villife.js?v=20261121-11" defer></script>
+  <link rel="stylesheet" href="/villife.css?v=20261121-12">
+  <script src="/villife.js?v=20261121-12" defer></script>
 </head>
 <body>
   <div class="sky" aria-hidden="true">
@@ -301,17 +301,36 @@
             </div>
           </div>
           <div class="export-options" id="export-options" hidden>
-            <p class="profile-hint">Что включить в архив</p>
-            <label class="export-check"><input type="checkbox" value="profile" checked> Профиль: имя, фамилия, почта, аватар</label>
-            <label class="export-check"><input type="checkbox" value="personalization" checked> Персонализация: тема и язык</label>
-            <label class="export-check"><input type="checkbox" value="account" checked> Данные аккаунта и дата запроса</label>
-            <p class="export-note">Плейлисты и библиотека не включаются — они находятся в плеере.</p>
+            <p class="export-intro">Чтобы скачать данные аккаунта Villife (включая расширенную информацию о профиле, подготовка которой занимает до 30 дней), нужно оформить запрос, дождаться обработки и получить письмо со ссылкой на скачивание.</p>
+
+            <h4 class="export-heading">1. Оформление запроса</h4>
+            <ul class="export-list">
+              <li><b>Откройте настройки аккаунта.</b> Войдите в профиль на сайте Villife и перейдите в раздел «Аккаунт» → «Скачать данные аккаунта».</li>
+              <li><b>Выберите пакеты данных.</b> Отметьте нужные разделы — каждый готовится в разные сроки (указано ниже).</li>
+              <li><b>Отправьте и подтвердите запрос.</b> Нажмите «Начать синхронизацию». После подтверждения на адрес профиля придёт письмо с деталями запроса — без подтверждения обработка не начнётся.</li>
+            </ul>
+
+            <h4 class="export-heading">2. Пакеты данных и сроки подготовки</h4>
+            <label class="export-check"><input type="checkbox" value="profile" checked> <span><b>Данные профиля</b> — имя, фамилия, почта, аватар. Готовится обычно в течение нескольких дней.</span></label>
+            <label class="export-check"><input type="checkbox" value="personalization" checked> <span><b>Персонализация</b> — тема сайта и выбранный язык. Готовится обычно в течение нескольких дней.</span></label>
+            <label class="export-check"><input type="checkbox" value="account" checked> <span><b>Данные аккаунта</b> — дата запроса, перечень разделов и расширенная информация. Подготовка может занять до 30 дней.</span></label>
+            <p class="export-note">Плейлисты, медиатека и история прослушивания не включаются — они находятся в приложении Villife и выгружаются только через плеер.</p>
+
+            <h4 class="export-heading">3. Получение архива</h4>
+            <ul class="export-list">
+              <li><b>Дождитесь уведомления.</b> Когда архив будет готов (обычно от нескольких дней до 30 дней), на почту придёт письмо со ссылкой. Если письма долго нет — проверьте папку «Спам».</li>
+              <li><b>Скачайте файл.</b> Перейдите по ссылке из письма. Архив имеет формат <b>.vlf</b> и содержит структурированные данные выбранных разделов.</li>
+              <li><b>Проверьте содержимое.</b> Убедитесь, что в архиве есть все отмеченные вами разделы.</li>
+            </ul>
+
+            <p class="export-important"><b>Важно:</b> ссылка на скачивание из письма имеет ограниченный срок действия. Если с момента запроса прошло больше 30 дней, письмо утеряно или ссылка просрочилась — запрос нужно оформить заново.</p>
+
             <button class="button button-primary" id="start-sync" type="button">Начать синхронизацию</button>
             <button class="button button-quiet" id="cancel-sync" type="button">Отмена</button>
             <div class="export-status" id="export-status" hidden>
               <div class="export-steps">
                 <div class="export-step active" data-step="1"><b>Запрос принят</b><small>Зафиксирован сейчас</small></div>
-                <div class="export-step" data-step="2"><b>Формирование архива</b><small>Зависит от выбранных разделов</small></div>
+                <div class="export-step" data-step="2"><b>Формирование архива</b><small>От нескольких дней до 30 дней</small></div>
                 <div class="export-step" data-step="3"><b>Проверка данных</b><small>Полнота и целостность файла</small></div>
                 <div class="export-step" data-step="4"><b>Письмо со ссылкой</b><small>Отправитель alias@villife.root.sx</small></div>
               </div>
