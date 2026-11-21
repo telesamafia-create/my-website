@@ -150,11 +150,12 @@
         return;
       }
       error.textContent = "";
+      localStorage.setItem("villife_session", "active");
       villifeShowProfile(profile);
     });
 
     document.getElementById("signout").addEventListener("click", () => {
-      localStorage.removeItem("villife_signup");
+      localStorage.setItem("villife_session", "inactive");
       location.href = "/signin/";
     });
 
@@ -179,7 +180,7 @@
         document.getElementById("social-status").textContent = message;
       } else {
         const raw = localStorage.getItem("villife_signup");
-        if (raw) {
+        if (raw && localStorage.getItem("villife_session") !== "inactive") {
           try {
             const profile = JSON.parse(raw);
             if (profile && profile.name) villifeShowProfile(profile);

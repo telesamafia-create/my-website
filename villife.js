@@ -371,7 +371,7 @@
   });
 
   document.getElementById("profile-logout").addEventListener("click", () => {
-    localStorage.removeItem("villife_signup");
+    localStorage.setItem("villife_session", "inactive");
     location.href = "/signin/";
   });
 

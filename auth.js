@@ -105,6 +105,7 @@ async function villifeMicrosoftCallback() {
       }
     }
     localStorage.setItem("villife_signup", JSON.stringify(profile));
+    localStorage.setItem("villife_session", "active");
     sessionStorage.removeItem("villife_pkce");
     sessionStorage.removeItem("villife_state");
     sessionStorage.removeItem("villife_nonce");
