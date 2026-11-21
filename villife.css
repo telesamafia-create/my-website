@@ -505,9 +505,9 @@ html.theme-dark .hero-shot { filter: drop-shadow(0 30px 50px rgba(0, 0, 0, .5));
 html.theme-dark .export-important { background: rgba(123, 150, 255, .1); border-color: var(--accent); }
 .profile-avatar-row { justify-content: center; margin: 4px 0 22px; }
 .profile-big-avatar { position: relative; cursor: default; }
-.profile-big-avatar::after { position: absolute; inset: 0; border-radius: 50%; content: ""; background: url("/paint-hover.png") center / 56% no-repeat; opacity: 0; transition: opacity .3s ease; }
+.profile-big-avatar::after { position: absolute; inset: 0; border-radius: 50%; content: ""; background: url("/paint-black.png") center / 56% no-repeat; opacity: 0; transition: opacity .3s ease; }
 .profile-big-avatar:hover::after { opacity: 1; }
 .header-avatar { position: relative; }
-.header-avatar::after { position: absolute; inset: 0; border-radius: 50%; content: ""; background: url("/paint-hover.png") center / 62% no-repeat; opacity: 0; transition: opacity .3s ease; }
+.header-avatar::after { position: absolute; inset: 0; border-radius: 50%; content: ""; background: url("/paint-black.png") center / 62% no-repeat; opacity: 0; transition: opacity .3s ease; }
 .header-profile:hover .header-avatar::after { opacity: 1; }
 
