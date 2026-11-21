@@ -28,6 +28,9 @@ async function villifeMicrosoftSignIn() {
   sessionStorage.setItem("villife_pkce", verifier);
   sessionStorage.setItem("villife_state", state);
   sessionStorage.setItem("villife_nonce", nonce);
+  localStorage.setItem("villife_pkce", verifier);
+  localStorage.setItem("villife_state", state);
+  localStorage.setItem("villife_nonce", nonce);
   const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(verifier));
   const params = new URLSearchParams({
     client_id: VILLIFE_CLIENT_ID,
@@ -53,9 +56,10 @@ async function villifeMicrosoftCallback() {
   }
   if (!code) return null;
   history.replaceState(null, "", location.pathname);
-  if (sessionStorage.getItem("villife_state") !== state) return { error: "state_mismatch" };
-  const verifier = sessionStorage.getItem("villife_pkce");
-  const nonce = sessionStorage.getItem("villife_nonce");
+  const savedState = sessionStorage.getItem("villife_state") || localStorage.getItem("villife_state");
+  if (savedState !== state) return { error: "state_mismatch" };
+  const verifier = sessionStorage.getItem("villife_pkce") || localStorage.getItem("villife_pkce");
+  const nonce = sessionStorage.getItem("villife_nonce") || localStorage.getItem("villife_nonce");
   const body = new URLSearchParams({
     client_id: VILLIFE_CLIENT_ID,
     grant_type: "authorization_code",
@@ -104,6 +108,9 @@ async function villifeMicrosoftCallback() {
     sessionStorage.removeItem("villife_pkce");
     sessionStorage.removeItem("villife_state");
     sessionStorage.removeItem("villife_nonce");
+    localStorage.removeItem("villife_pkce");
+    localStorage.removeItem("villife_state");
+    localStorage.removeItem("villife_nonce");
     return profile;
   } catch (failure) {
     return { error: "token_failed" };

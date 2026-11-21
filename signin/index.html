@@ -175,7 +175,10 @@
       if (result && result.name) {
         villifeShowProfile(result);
       } else if (result && result.error) {
-        document.getElementById("social-status").textContent = "Microsoft sign-in failed: " + result.error;
+        const message = result.error === "state_mismatch"
+          ? "Sign-in session expired. Please try again."
+          : "Microsoft sign-in failed: " + result.error;
+        document.getElementById("social-status").textContent = message;
       } else {
         const raw = localStorage.getItem("villife_signup");
         if (raw) {
