@@ -227,9 +227,36 @@
     if (open) fillProfile();
   }
 
-  if (headerProfile && panel) {
-    headerProfile.addEventListener("click", () => {
-      location.hash = "settings";
+  const profileMenu = document.getElementById("profile-menu");
+
+  if (headerProfile && profileMenu) {
+    headerProfile.addEventListener("click", event => {
+      event.stopPropagation();
+      profileMenu.hidden = !profileMenu.hidden;
+    });
+    document.addEventListener("click", event => {
+      if (!profileMenu.hidden && !profileMenu.contains(event.target)) profileMenu.hidden = true;
+    });
+    profileMenu.querySelectorAll("[data-menu]").forEach(item => {
+      item.addEventListener("click", () => {
+        const action = item.dataset.menu;
+        profileMenu.hidden = true;
+        if (action === "logout") {
+          localStorage.setItem("villife_session", "inactive");
+          location.href = "/signin/";
+          return;
+        }
+        const tab = action === "settings" ? "personalization" : action === "profile" ? "profile" : "account";
+        location.hash = "settings";
+        setTimeout(() => {
+          document.querySelectorAll(".profile-tab").forEach(button => {
+            button.classList.toggle("active", button.dataset.panelTab === tab);
+          });
+          document.querySelectorAll(".profile-section").forEach(section => {
+            section.classList.toggle("active", section.dataset.panelSection === tab);
+          });
+        }, 60);
+      });
     });
   }
 

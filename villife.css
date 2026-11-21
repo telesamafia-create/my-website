@@ -525,3 +525,11 @@ html.theme-dark .export-important { background: rgba(123, 150, 255, .1); border-
 .button:focus-visible, .profile-tab:focus-visible, .theme-choice:focus-visible, .header-link:focus-visible, .header-profile:focus-visible, .input:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) { .ripple { display: none; } .profile-dialog, .profile-section.active > * { animation: none; } }
 
+.header-actions { position: relative; }
+.profile-menu { position: absolute; z-index: 600; top: calc(100% + 10px); right: 0; width: 236px; padding: 8px; border: 1px solid #3a3d44; border-radius: 16px; background: #202227; box-shadow: 0 24px 60px -20px rgba(0, 0, 0, .65); animation: menuIn .22s cubic-bezier(.2, .8, .2, 1) both; }
+.profile-menu[hidden] { display: none; }
+@keyframes menuIn { from { opacity: 0; transform: translateY(-6px) scale(.98); } to { opacity: 1; transform: none; } }
+.profile-menu-item { display: flex; width: 100%; min-height: 38px; align-items: center; justify-content: space-between; padding: 7px 12px; border: 0; border-radius: 9px; background: transparent; color: #f1f2f4; font: inherit; font-size: 13px; text-align: left; cursor: pointer; }
+.profile-menu-item:hover { background: rgba(255, 255, 255, .09); }
+.menu-ext { color: #9aa0ab; font-size: 14px; }
+.profile-menu-divider { height: 1px; margin: 6px 6px; background: rgba(255, 255, 255, .12); }
