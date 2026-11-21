@@ -410,3 +410,8 @@ h1, h2, h3, p { margin-top: 0; }
 .hero-shot { display: block; width: min(1000px, 100%); aspect-ratio: 974 / 601; background: url("/o.png") center / contain no-repeat; filter: drop-shadow(0 30px 50px rgba(30, 36, 54, .3)); }
 @media (max-width: 900px) { .hero-shot { max-width: 100%; } }
 
+@media (min-width: 701px) and (max-width: 1100px) {
+  .hero { grid-template-columns: 1fr 1.05fr; }
+  .hero-visual { min-height: 420px; }
+  .hero-shot { width: 100%; }
+}
