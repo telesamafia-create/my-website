@@ -458,3 +458,8 @@ html.theme-dark { color-scheme: dark; --paper: #14161a; --ink: #f1f2f4; --ink-so
 .profile-logout { display: block; width: 100%; min-height: 48px; border: 0; border-top: 1px solid var(--line); background: transparent; color: #e05b63; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
 .profile-logout:hover { background: rgba(224, 91, 99, .1); }
 
+.profile-panel { position: fixed; z-index: 500; inset: 0; display: block; padding: 24px 20px 60px; overflow-y: auto; background: var(--paper); }
+.profile-backdrop { display: none; }
+.profile-dialog { width: min(720px, 100%); max-height: none; margin: 0 auto; }
+.profile-back { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 12px; color: var(--muted); font-size: 13px; }
+.profile-back:hover { color: var(--accent); }

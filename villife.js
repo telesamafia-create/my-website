@@ -221,15 +221,26 @@
     document.documentElement.classList.toggle("theme-dark", theme === "dark");
   }
 
+  function syncSettingsHash() {
+    if (!panel) return;
+    const open = location.hash === "#settings";
+    panel.hidden = !open;
+    if (open) fillProfile();
+  }
+
   if (headerProfile && panel) {
     headerProfile.addEventListener("click", () => {
-      fillProfile();
-      panel.hidden = false;
-    });
-    document.getElementById("profile-backdrop").addEventListener("click", () => {
-      panel.hidden = true;
+      location.hash = "settings";
     });
   }
+
+  document.getElementById("profile-backdrop").addEventListener("click", () => {
+    history.replaceState(null, "", "/");
+    if (panel) panel.hidden = true;
+  });
+
+  window.addEventListener("hashchange", syncSettingsHash);
+  syncSettingsHash();
 
   document.querySelectorAll(".profile-tab").forEach(tab => {
     tab.addEventListener("click", () => {
