@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f5f0">
+  <meta name="description" content="Create your Villife profile — name, username, date of birth and email.">
+  <meta name="robots" content="index, follow">
+  <title>Sign up — Villife</title>
+  <link rel="canonical" href="https://villife.hs.vc/signup/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Villife">
+  <meta property="og:title" content="Sign up — Villife">
+  <meta property="og:description" content="Create your Villife profile.">
+  <meta property="og:url" content="https://villife.hs.vc/signup/">
+  <link rel="icon" href="/villife.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/villife.css">
+  <style>
+    .signup-page { position: relative; z-index: 4; min-height: 100vh; display: flex; flex-direction: column; }
+    .signup-header { display: flex; width: min(1120px, calc(100% - 48px)); margin: 0 auto; padding: 28px 0; align-items: center; justify-content: space-between; }
+    .signup-brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); font-family: var(--display); font-size: 21px; font-weight: 600; }
+    .signup-brand img { width: 32px; height: 32px; }
+    .signup-back { color: var(--ink-soft); font-size: 13px; transition: color .3s ease; }
+    .signup-back:hover { color: var(--accent); }
+    .signup-main { flex: 1; display: grid; place-items: center; padding: 20px 24px 80px; }
+    .signup-card { width: min(460px, 100%); padding: 40px; border: 1px solid var(--line); border-radius: 24px; background: var(--glass-strong); box-shadow: var(--shadow-mid); backdrop-filter: blur(20px); }
+    .signup-eyebrow { color: var(--faint); font-size: 10px; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; }
+    .signup-title { margin: 12px 0 6px; font-family: var(--display); font-size: 34px; font-weight: 500; line-height: 1.15; }
+    .signup-subtitle { margin: 0 0 28px; color: var(--ink-soft); font-size: 14px; }
+    .signup-field { display: block; margin-bottom: 16px; }
+    .signup-field > span { display: block; margin-bottom: 7px; color: var(--ink-soft); font-size: 12px; font-weight: 600; }
+    .signup-field input, .signup-field select { width: 100%; height: 46px; padding: 0 14px; border: 1px solid var(--line); border-radius: 12px; outline: none; background: rgba(255, 255, 255, .7); color: var(--ink); font: inherit; font-size: 14px; transition: border-color .25s ease, box-shadow .25s ease; }
+    .signup-field input:focus, .signup-field select:focus { border-color: var(--accent-soft); box-shadow: 0 0 0 3px rgba(93, 124, 242, .12); }
+    .signup-submit { width: 100%; margin-top: 10px; cursor: pointer; }
+    .signup-note { margin: 18px 0 0; color: var(--faint); font-size: 12px; text-align: center; }
+    .signup-done { display: none; text-align: center; }
+    .signup-done strong { display: block; margin: 12px 0 6px; font-family: var(--display); font-size: 28px; font-weight: 500; }
+    .signup-done span { color: var(--ink-soft); font-size: 14px; }
+    .signup-form.is-hidden { display: none; }
+    .signup-done.is-visible { display: block; }
+  </style>
+</head>
+<body>
+  <div class="signup-page">
+    <header class="signup-header">
+      <a class="signup-brand" href="/"><img src="/villife-flower.png" alt=""><span>Villife</span></a>
+      <a class="signup-back" href="/">Back to home</a>
+    </header>
+    <main class="signup-main">
+      <div class="signup-card">
+        <div class="signup-eyebrow">Villife account</div>
+        <h1 class="signup-title">Sign up</h1>
+        <p class="signup-subtitle">Create a profile to keep your details in one place.</p>
+        <form class="signup-form" id="signup-form">
+          <label class="signup-field">
+            <span>Name</span>
+            <input id="signup-name" type="text" autocomplete="name" placeholder="Your name" required>
+          </label>
+          <label class="signup-field">
+            <span>Username</span>
+            <input id="signup-username" type="text" autocomplete="username" placeholder="username" required>
+          </label>
+          <label class="signup-field">
+            <span>Date of birth</span>
+            <input id="signup-birth" type="date" required>
+          </label>
+          <label class="signup-field">
+            <span>Email provider</span>
+            <select id="signup-provider">
+              <option value="outlook.com">Microsoft · Outlook</option>
+              <option value="gmail.com">Google · Gmail</option>
+              <option value="yahoo.com">Yahoo Mail</option>
+              <option value="icloud.com">iCloud Mail</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+          <label class="signup-field">
+            <span>Email</span>
+            <input id="signup-email" type="email" autocomplete="email" placeholder="name@gmail.com" required>
+          </label>
+          <button class="button button-primary signup-submit" type="submit">Create account</button>
+          <p class="signup-note">Your profile is stored in this browser.</p>
+        </form>
+        <div class="signup-done" id="signup-done">
+          <div class="signup-eyebrow">Villife account</div>
+          <strong>You're all set</strong>
+          <span id="signup-done-text"></span>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script>
+    const form = document.getElementById("signup-form");
+    const done = document.getElementById("signup-done");
+    const saved = localStorage.getItem("villife_signup");
+    if (saved) {
+      try {
+        const profile = JSON.parse(saved);
+        form.classList.add("is-hidden");
+        done.classList.add("is-visible");
+        document.getElementById("signup-done-text").textContent = profile.name + " · " + profile.email;
+      } catch (error) {
+        localStorage.removeItem("villife_signup");
+      }
+    }
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      const profile = {
+        name: document.getElementById("signup-name").value.trim(),
+        username: document.getElementById("signup-username").value.trim(),
+        birthDate: document.getElementById("signup-birth").value,
+        provider: document.getElementById("signup-provider").value,
+        email: document.getElementById("signup-email").value.trim()
+      };
+      localStorage.setItem("villife_signup", JSON.stringify(profile));
+      form.classList.add("is-hidden");
+      done.classList.add("is-visible");
+      document.getElementById("signup-done-text").textContent = profile.name + " · " + profile.email;
+    });
+  </script>
+</body>
+</html>
