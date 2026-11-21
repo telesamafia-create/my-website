@@ -375,5 +375,8 @@
     location.href = "/signin/";
   });
 
+  const initialTheme = localStorage.getItem("villife_site_theme");
+  if (initialTheme === "dark") document.documentElement.classList.add("theme-dark");
+
   applyLanguage();
 })();

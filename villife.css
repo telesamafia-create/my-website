@@ -482,3 +482,25 @@ html.theme-dark { color-scheme: dark; --paper: #14161a; --ink: #f1f2f4; --ink-so
 .profile-dialog { max-height: none; overflow: visible; }
 .profile-panel, .export-rules { scrollbar-width: none; -ms-overflow-style: none; }
 .profile-panel::-webkit-scrollbar, .export-rules::-webkit-scrollbar { display: none; }
+.profile-back { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 18px; padding: 9px 16px; border: 1px solid var(--line); border-radius: 999px; background: var(--glass); color: var(--ink); font-size: 12px; font-weight: 600; transition: border-color .25s ease, background .25s ease, transform .25s ease; }
+.profile-back::before { content: "←"; font-size: 15px; line-height: 1; }
+.profile-back:hover { border-color: var(--accent); background: var(--accent); color: #fff; transform: translateX(-2px); }
+.profile-dialog { padding: 24px; }
+.profile-tabs { margin: 0 -24px 4px; padding: 0 24px; }
+.profile-body { padding: 20px 0; }
+.profile-tab { min-height: 42px; border-radius: 10px; font-size: 12.5px; }
+.profile-tab.active { background: var(--accent); color: #fff; }
+.profile-section h3 { font-size: 26px; letter-spacing: -.02em; }
+.profile-field .input { border-color: var(--line); }
+.profile-save { min-height: 48px; font-size: 13px; }
+.theme-choice { min-height: 44px; }
+.profile-logout { margin: 8px -24px -24px; width: calc(100% + 48px); border-radius: 0 0 22px 22px; }
+html.theme-dark .button-primary { background: var(--accent); color: #fff; box-shadow: none; }
+html.theme-dark .button-primary:hover { background: var(--accent); filter: brightness(1.08); }
+html.theme-dark .button-quiet { background: rgba(255, 255, 255, .06); border-color: var(--line); color: var(--ink); }
+html.theme-dark .button-quiet:hover { border-color: var(--accent); color: var(--ink); }
+html.theme-dark .site-header { background: var(--glass); }
+html.theme-dark .header-link { color: var(--ink-soft); }
+html.theme-dark .hero-shot { filter: drop-shadow(0 30px 50px rgba(0, 0, 0, .5)); }
+html.theme-dark .export-important { background: rgba(123, 150, 255, .1); border-color: var(--accent); }
+
