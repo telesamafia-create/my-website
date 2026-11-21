@@ -74,7 +74,8 @@
     </nav>
     <div class="header-actions">
       <button class="language-switch" type="button" aria-label="Switch language">RU</button>
-      <a class="header-link" href="/signin/"><span data-en="Sign in" data-ru="Войти">Sign in</span></a>
+      <a class="header-link" id="header-signin" href="/signin/"><span data-en="Sign in" data-ru="Войти">Sign in</span></a>
+      <a class="header-profile" id="header-profile" href="/signin/" hidden><span class="header-avatar" id="header-avatar"></span><span id="header-name"></span></a>
       <a class="header-link" href="https://github.com/whatawhere/villife" target="_blank" rel="noreferrer">
         <svg class="icon-github" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.61-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A7.99 7.99 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
         <span data-en="Source code" data-ru="Исходный код">Source code</span>
@@ -319,6 +320,33 @@
       document.querySelectorAll(".manifesto-text, .feature-card, .window-copy, .windows-art, .about-body, .closing-section").forEach(element => {
         element.classList.add("reveal");
       });
+    })();
+  </script>
+  <script>
+    (() => {
+      const raw = localStorage.getItem("villife_signup");
+      if (!raw) return;
+      try {
+        const profile = JSON.parse(raw);
+        if (!profile || !profile.name) return;
+        const signin = document.getElementById("header-signin");
+        const target = document.getElementById("header-profile");
+        if (signin) signin.hidden = true;
+        if (target) target.hidden = false;
+        const avatar = document.getElementById("header-avatar");
+        if (profile.photo) {
+          const picture = document.createElement("img");
+          picture.src = profile.photo;
+          picture.alt = "";
+          avatar.appendChild(picture);
+        } else {
+          const parts = String(profile.name).trim().split(/\s+/).filter(Boolean);
+          avatar.textContent = (parts.length > 1 ? parts[0][0] + parts[1][0] : parts[0].slice(0, 2)).toLocaleUpperCase();
+        }
+        document.getElementById("header-name").textContent = profile.name;
+      } catch (error) {
+        localStorage.removeItem("villife_signup");
+      }
     })();
   </script>
 </body>
