@@ -343,8 +343,31 @@
     link.click();
     URL.revokeObjectURL(url);
     exportStatus.hidden = false;
-    exportStatus.textContent = "Архив .vlf сформирован. Запрос отправлен на обработку. В течение 30 дней после обработки на адрес " +
-      ((account && account.email) || "вашей почты") + " придёт письмо со ссылкой на скачивание.";
+    const steps = Array.from(document.querySelectorAll(".export-step"));
+    steps.forEach((step, index) => {
+      step.classList.remove("active", "done");
+      if (index === 0) step.classList.add("active");
+    });
+    const email = (account && account.email) || "вашей почты";
+    document.getElementById("export-detail").innerHTML =
+      "Запрос создан. Срок обработки зависит от выбранных разделов, объёма данных и текущей нагрузки — обычно это несколько минут, но при дополнительной проверке до 30 дней. " +
+      "На адрес <b>" + email + "</b> с адреса <a href='mailto:vlf@villife.hs.vc'>vlf@villife.hs.vc</a> придёт письмо: в нём будут дата запроса, список экспортированных разделов, причина задержки, если она была, и ссылка на скачивание файла .vlf.";
+    let current = 0;
+    const timer = setInterval(() => {
+      if (current >= steps.length - 1) {
+        clearInterval(timer);
+        return;
+      }
+      steps[current].classList.remove("active");
+      steps[current].classList.add("done");
+      current += 1;
+      steps[current].classList.add("active");
+    }, 1800);
+  });
+
+  document.getElementById("cancel-request").addEventListener("click", () => {
+    exportStatus.hidden = true;
+    exportOptions.hidden = true;
   });
 
   document.getElementById("profile-logout").addEventListener("click", () => {
