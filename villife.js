@@ -169,5 +169,177 @@
     if (current) platformButtons.prepend(current);
   }
 
+  const rawProfile = localStorage.getItem("villife_signup");
+  let account = null;
+  try { account = rawProfile ? JSON.parse(rawProfile) : null; } catch (error) { account = null; }
+
+  const panel = document.getElementById("profile-panel");
+  const headerProfile = document.getElementById("header-profile");
+  const bigAvatar = document.getElementById("profile-big-avatar");
+  const firstInput = document.getElementById("profile-first");
+  const lastInput = document.getElementById("profile-last");
+  const photoInput = document.getElementById("photo-input");
+  const langSelect = document.getElementById("profile-language");
+  const themeButtons = Array.from(document.querySelectorAll(".theme-choice"));
+
+  function profileInitials(name) {
+    const parts = String(name || "").trim().split(/\s+/).filter(Boolean);
+    if (!parts.length) return "?";
+    return (parts.length > 1 ? parts[0][0] + parts[1][0] : parts[0].slice(0, 2)).toLocaleUpperCase();
+  }
+
+  function renderAvatar(element, profile) {
+    element.innerHTML = "";
+    if (profile && profile.photo) {
+      const picture = document.createElement("img");
+      picture.src = profile.photo;
+      picture.alt = "";
+      element.appendChild(picture);
+    } else {
+      element.textContent = profileInitials(profile ? (profile.name || profile.username) : "");
+    }
+  }
+
+  function saveAccount() {
+    localStorage.setItem("villife_signup", JSON.stringify(account));
+  }
+
+  function flashSave(button) {
+    button.classList.add("is-saved");
+    setTimeout(() => button.classList.remove("is-saved"), 1400);
+  }
+
+  function fillProfile() {
+    if (!account) return;
+    const parts = String(account.name || "").trim().split(/\s+/);
+    firstInput.value = account.firstName || parts[0] || "";
+    lastInput.value = account.lastName || parts.slice(1).join(" ") || "";
+    renderAvatar(bigAvatar, account);
+    langSelect.value = ["ru", "en", "es", "de", "fr"].includes(language) ? language : "en";
+    const theme = localStorage.getItem("villife_site_theme") || "light";
+    themeButtons.forEach(button => button.classList.toggle("active", button.dataset.theme === theme));
+    document.documentElement.classList.toggle("theme-dark", theme === "dark");
+  }
+
+  if (headerProfile && panel) {
+    headerProfile.addEventListener("click", () => {
+      fillProfile();
+      panel.hidden = false;
+    });
+    document.getElementById("profile-backdrop").addEventListener("click", () => {
+      panel.hidden = true;
+    });
+  }
+
+  document.querySelectorAll(".profile-tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".profile-tab").forEach(item => item.classList.toggle("active", item === tab));
+      document.querySelectorAll(".profile-section").forEach(section => {
+        section.classList.toggle("active", section.dataset.panelSection === tab.dataset.panelTab);
+      });
+    });
+  });
+
+  document.getElementById("choose-photo").addEventListener("click", () => photoInput.click());
+  photoInput.addEventListener("change", () => {
+    const file = photoInput.files && photoInput.files[0];
+    if (!file || !account) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      account.photo = String(reader.result);
+      saveAccount();
+      renderAvatar(bigAvatar, account);
+      const headerAvatar = document.getElementById("header-avatar");
+      if (headerAvatar) renderAvatar(headerAvatar, account);
+    };
+    reader.readAsDataURL(file);
+  });
+
+  document.querySelectorAll('[data-panel-section="profile"] .profile-save').forEach(button => {
+    button.addEventListener("click", () => {
+      if (!account) return;
+      account.firstName = firstInput.value.trim();
+      account.lastName = lastInput.value.trim();
+      account.name = [account.firstName, account.lastName].filter(Boolean).join(" ");
+      saveAccount();
+      document.getElementById("header-name").textContent = account.name;
+      renderAvatar(document.getElementById("header-avatar"), account);
+      flashSave(button);
+    });
+  });
+
+  themeButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      themeButtons.forEach(item => item.classList.toggle("active", item === button));
+      document.documentElement.classList.toggle("theme-dark", button.dataset.theme === "dark");
+    });
+  });
+
+  document.querySelectorAll('[data-panel-section="personalization"] .profile-save').forEach(button => {
+    button.addEventListener("click", () => {
+      localStorage.setItem("villife_site_theme", document.documentElement.classList.contains("theme-dark") ? "dark" : "light");
+      const selected = langSelect.value;
+      localStorage.setItem("villife-site-language", selected);
+      if (selected === "ru" || selected === "en") {
+        language = selected;
+        applyLanguage();
+      }
+      flashSave(button);
+    });
+  });
+
+  const exportRules = document.getElementById("export-rules");
+  const exportOptions = document.getElementById("export-options");
+  const exportStatus = document.getElementById("export-status");
+
+  document.getElementById("download-data").addEventListener("click", () => {
+    exportRules.hidden = false;
+    exportOptions.hidden = true;
+  });
+  document.getElementById("accept-rules").addEventListener("click", () => {
+    exportRules.hidden = true;
+    exportOptions.hidden = false;
+  });
+  document.getElementById("decline-rules").addEventListener("click", () => {
+    exportRules.hidden = true;
+    exportOptions.hidden = true;
+  });
+  document.getElementById("cancel-sync").addEventListener("click", () => {
+    exportOptions.hidden = true;
+    exportStatus.hidden = true;
+  });
+
+  document.getElementById("start-sync").addEventListener("click", () => {
+    const data = { format: "vlf", version: 1, requestedAt: new Date().toISOString() };
+    document.querySelectorAll(".export-check input").forEach(input => {
+      if (!input.checked) return;
+      if (input.value === "profile") data.profile = account;
+      if (input.value === "personalization") {
+        data.personalization = {
+          theme: localStorage.getItem("villife_site_theme") || "light",
+          language: localStorage.getItem("villife-site-language") || "en"
+        };
+      }
+      if (input.value === "account") {
+        data.account = { email: account && account.email, username: account && account.username };
+      }
+    });
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/octet-stream" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "villife-account.vlf";
+    link.click();
+    URL.revokeObjectURL(url);
+    exportStatus.hidden = false;
+    exportStatus.textContent = "Архив .vlf сформирован. Запрос отправлен на обработку. В течение 30 дней после обработки на адрес " +
+      ((account && account.email) || "вашей почты") + " придёт письмо со ссылкой на скачивание.";
+  });
+
+  document.getElementById("profile-logout").addEventListener("click", () => {
+    localStorage.removeItem("villife_signup");
+    location.href = "/signin/";
+  });
+
   applyLanguage();
 })();

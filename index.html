@@ -43,8 +43,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/villife.css?v=20261121-6">
-  <script src="/villife.js?v=20261121-6" defer></script>
+  <link rel="stylesheet" href="/villife.css?v=20261121-7">
+  <script src="/villife.js?v=20261121-7" defer></script>
 </head>
 <body>
   <div class="sky" aria-hidden="true">
@@ -75,7 +75,7 @@
     <div class="header-actions">
       <button class="language-switch" type="button" aria-label="Switch language">RU</button>
       <a class="header-link" id="header-signin" href="/signin/"><span data-en="Sign in" data-ru="Войти">Sign in</span></a>
-      <a class="header-profile" id="header-profile" href="/signin/" hidden><span class="header-avatar" id="header-avatar"></span><span id="header-name"></span></a>
+      <button class="header-profile" id="header-profile" type="button" hidden><span class="header-avatar" id="header-avatar"></span><span id="header-name"></span></button>
       <a class="header-link" href="https://github.com/whatawhere/villife" target="_blank" rel="noreferrer">
         <svg class="icon-github" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.61-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A7.99 7.99 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
         <span data-en="Source code" data-ru="Исходный код">Source code</span>
@@ -235,6 +235,85 @@
     </a>
     <span>© <span id="year"></span> VILLIFE</span>
   </footer>
+
+  <div class="profile-panel" id="profile-panel" hidden>
+    <div class="profile-backdrop" id="profile-backdrop"></div>
+    <div class="profile-dialog">
+      <div class="profile-tabs">
+        <button class="profile-tab active" type="button" data-panel-tab="profile">Профиль</button>
+        <button class="profile-tab" type="button" data-panel-tab="personalization">Персонализация</button>
+        <button class="profile-tab" type="button" data-panel-tab="account">Аккаунт</button>
+      </div>
+      <div class="profile-body">
+        <section class="profile-section active" data-panel-section="profile">
+          <h3>Профиль</h3>
+          <div class="profile-avatar-row">
+            <div class="profile-big-avatar" id="profile-big-avatar"></div>
+            <div class="profile-avatar-actions">
+              <button class="button button-quiet" type="button" id="choose-photo">Выбрать фото</button>
+              <input type="file" id="photo-input" accept="image/*" hidden>
+              <small>Изображение сохраняется в исходном качестве</small>
+            </div>
+          </div>
+          <label class="profile-field"><span>Имя</span><input class="input" id="profile-first" type="text" autocomplete="given-name"></label>
+          <label class="profile-field"><span>Фамилия</span><input class="input" id="profile-last" type="text" autocomplete="family-name"></label>
+          <button class="button button-primary profile-save" type="button"><span class="save-label">Сохранить</span><span class="save-check">✓</span></button>
+        </section>
+        <section class="profile-section" data-panel-section="personalization">
+          <h3>Персонализация</h3>
+          <p class="profile-hint">Тема сайта</p>
+          <div class="theme-choices">
+            <button class="theme-choice active" type="button" data-theme="light">Белая</button>
+            <button class="theme-choice" type="button" data-theme="dark">Чёрная</button>
+          </div>
+          <label class="profile-field"><span>Язык интерфейса</span>
+            <select class="input" id="profile-language">
+              <option value="ru">Русский</option>
+              <option value="en">English</option>
+              <option value="es">Español</option>
+              <option value="de">Deutsch</option>
+              <option value="fr">Français</option>
+            </select>
+          </label>
+          <button class="button button-primary profile-save" type="button"><span class="save-label">Сохранить</span><span class="save-check">✓</span></button>
+        </section>
+        <section class="profile-section" data-panel-section="account">
+          <h3>Аккаунт</h3>
+          <button class="button button-quiet" id="download-data" type="button">Скачать данные аккаунта</button>
+          <div class="export-rules" id="export-rules" hidden>
+            <h4>Правила экспорта данных Villife</h4>
+            <p>1. Экспорт данных выполняется только по вашему запросу. Вы самостоятельно определяете, какие именно сведения подлежат передаче, отмечая соответствующие пункты.</p>
+            <p>2. Villife — статический сайт. Профиль, настройки и язык хранятся в вашем браузере, а не на наших серверах. Мы не имеем доступа к вашим файлам, плейлистам, истории прослушивания и учётным данным сторонних сервисов.</p>
+            <p>3. Мы не несём ответственности за достоверность, полноту и актуальность сведений, которые вы указали сами: имя, фамилию, дату рождения, адрес электронной почты и фотографию профиля. Проверяйте данные перед запросом экспорта.</p>
+            <p>4. Мы не несём ответственности за случайно или умышленно указанные вами неверные данные, а также за последствия их использования третьими лицами, если вы передали архив или ссылку на него другим лицам.</p>
+            <p>5. Архив формируется локально в формате .vlf и содержит только те разделы, которые вы выбрали. Мы не добавляем в него данные, которые вы не отметили.</p>
+            <p>6. Плейлисты, библиотека треков, история воспроизведения и настройки плеера не экспортируются через сайт — они находятся в приложении Villife и управляются им отдельно.</p>
+            <p>7. После подтверждения запрос на экспорт направляется на обработку. Обработка занимает до 30 дней с момента запроса. Мы не гарантируем мгновенную отправку архива.</p>
+            <p>8. По завершении обработки на адрес электронной почты, указанный в вашем профиле, отправляется сообщение со ссылкой на скачивание архива. Мы не несём ответственности за задержки доставки, фильтрацию письма спам-фильтрами, недоступность почтового сервера или ошибки в указанном вами адресе.</p>
+            <p>9. Мы не несём ответственности за утрату архива после его скачивания, а также за повреждение файла на вашем устройстве. Рекомендуем сохранить копию.</p>
+            <p>10. Мы не собираем и не продаём ваши данные, не передаём их рекламным сетям и не используем для сторонних целей. Экспорт — это только возврат ваших же сведений вам же.</p>
+            <p>11. Принимая правила, вы подтверждаете, что ознакомились с ними, понимаете объём экспортируемых данных и соглашаетесь с условиями обработки запроса.</p>
+            <p>12. Отказ от принятия правил прекращает процедуру экспорта. Вы можете повторить запрос в любое время.</p>
+            <div class="export-actions">
+              <button class="button button-primary" id="accept-rules" type="button">Принять всё</button>
+              <button class="button button-quiet" id="decline-rules" type="button">Отказаться</button>
+            </div>
+          </div>
+          <div class="export-options" id="export-options" hidden>
+            <p class="profile-hint">Что включить в архив</p>
+            <label class="export-check"><input type="checkbox" value="profile" checked> Профиль: имя, фамилия, почта, аватар</label>
+            <label class="export-check"><input type="checkbox" value="personalization" checked> Персонализация: тема и язык</label>
+            <label class="export-check"><input type="checkbox" value="account" checked> Данные аккаунта и дата запроса</label>
+            <p class="export-note">Плейлисты и библиотека не включаются — они находятся в плеере.</p>
+            <button class="button button-primary" id="start-sync" type="button">Начать синхронизацию</button>
+            <button class="button button-quiet" id="cancel-sync" type="button">Отмена</button>
+            <p class="export-status" id="export-status" hidden></p>
+          </div>
+        </section>
+      </div>
+      <button class="profile-logout" id="profile-logout" type="button">Выход</button>
+    </div>
+  </div>
 
   <script>
     (() => {
