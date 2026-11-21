@@ -359,5 +359,18 @@
     location.href = "/signin/";
   });
 
+  document.addEventListener("pointerdown", event => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const target = event.target.closest(".button, .profile-tab, .theme-choice, .header-link, .header-profile");
+    if (!target) return;
+    const bounds = target.getBoundingClientRect();
+    const dot = document.createElement("span");
+    dot.className = "ripple";
+    dot.style.left = (event.clientX - bounds.left) + "px";
+    dot.style.top = (event.clientY - bounds.top) + "px";
+    target.appendChild(dot);
+    setTimeout(() => dot.remove(), 600);
+  });
+
   applyLanguage();
 })();
