@@ -43,8 +43,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/villife.css?v=20261121-27">
-  <script src="/villife.js?v=20261121-27" defer></script>
+  <link rel="stylesheet" href="/villife.css?v=20261121-28">
+  <script src="/villife.js?v=20261121-28" defer></script>
 </head>
 <body>
   <div class="sky" aria-hidden="true">
@@ -244,6 +244,30 @@
     <span>© <span id="year"></span> VILLIFE</span>
   </footer>
 
+  <div class="user-profile" id="user-profile" hidden>
+    <a class="profile-back" href="/">← Назад на сайт</a>
+    <header class="user-profile-head">
+      <div class="user-profile-avatar" id="user-profile-avatar"></div>
+      <div class="user-profile-id">
+        <span class="user-profile-label">Профиль</span>
+        <h1 id="user-profile-name"></h1>
+        <p id="user-profile-meta"></p>
+      </div>
+    </header>
+    <div class="user-profile-actions">
+      <button class="button button-quiet" type="button" id="user-profile-edit">Редактировать профиль</button>
+      <button class="button button-quiet" type="button" id="user-profile-settings">Настройки</button>
+    </div>
+    <section class="user-profile-section">
+      <h2>Данные профиля</h2>
+      <div class="user-profile-grid">
+        <div><span>Имя</span><b id="user-profile-first"></b></div>
+        <div><span>Фамилия</span><b id="user-profile-last"></b></div>
+        <div><span>Почта</span><b id="user-profile-email"></b></div>
+        <div><span>Юзернейм</span><b id="user-profile-username"></b></div>
+      </div>
+    </section>
+  </div>
   <div class="profile-panel" id="profile-panel" hidden>
     <div class="profile-backdrop" id="profile-backdrop"></div>
     <div class="profile-dialog">

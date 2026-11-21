@@ -220,11 +220,43 @@
     document.documentElement.classList.toggle("theme-dark", theme === "dark");
   }
 
+  const userProfile = document.getElementById("user-profile");
+
+  function fillUserProfile() {
+    if (!userProfile || !account) return;
+    const parts = String(account.name || "").trim().split(/\s+/);
+    const first = account.firstName || parts[0] || "";
+    const last = account.lastName || parts.slice(1).join(" ") || "";
+    document.getElementById("user-profile-name").textContent = account.username || account.name || "";
+    document.getElementById("user-profile-meta").textContent = [account.name, account.email].filter(Boolean).join(" · ");
+    document.getElementById("user-profile-first").textContent = first;
+    document.getElementById("user-profile-last").textContent = last;
+    document.getElementById("user-profile-email").textContent = account.email || "";
+    document.getElementById("user-profile-username").textContent = account.username || "";
+    const avatar = document.getElementById("user-profile-avatar");
+    avatar.innerHTML = "";
+    if (account.photo) {
+      const picture = document.createElement("img");
+      picture.src = account.photo;
+      picture.alt = "";
+      avatar.appendChild(picture);
+    } else {
+      avatar.textContent = (first[0] || "") + (last[0] || "") || "?";
+    }
+  }
+
   function syncSettingsHash() {
-    if (!panel) return;
-    const open = location.hash === "#settings";
-    panel.hidden = !open;
-    if (open) fillProfile();
+    const hash = location.hash;
+    if (panel) {
+      const open = hash === "#settings";
+      panel.hidden = !open;
+      if (open) fillProfile();
+    }
+    if (userProfile) {
+      const open = hash === "#profile";
+      userProfile.hidden = !open;
+      if (open) fillUserProfile();
+    }
   }
 
   const profileMenu = document.getElementById("profile-menu");
@@ -246,7 +278,11 @@
           location.href = "/signin/";
           return;
         }
-        const tab = action === "settings" ? "personalization" : action === "profile" ? "profile" : "account";
+        if (action === "profile") {
+          location.hash = "profile";
+          return;
+        }
+        const tab = action === "settings" ? "personalization" : "account";
         location.hash = "settings";
         setTimeout(() => {
           document.querySelectorAll(".profile-tab").forEach(button => {
@@ -259,6 +295,9 @@
       });
     });
   }
+
+  document.getElementById("user-profile-edit").addEventListener("click", () => { location.hash = "settings"; });
+  document.getElementById("user-profile-settings").addEventListener("click", () => { location.hash = "settings"; });
 
   document.getElementById("profile-backdrop").addEventListener("click", () => {
     history.replaceState(null, "", "/");
