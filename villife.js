@@ -351,7 +351,7 @@
     const email = (account && account.email) || "вашей почты";
     document.getElementById("export-detail").innerHTML =
       "Запрос создан. Срок обработки зависит от выбранных разделов, объёма данных и текущей нагрузки — обычно это несколько минут, но при дополнительной проверке до 30 дней. " +
-      "На адрес <b>" + email + "</b> с адреса <a href='mailto:vlf@villife.hs.vc'>vlf@villife.hs.vc</a> придёт письмо: в нём будут дата запроса, список экспортированных разделов, причина задержки, если она была, и ссылка на скачивание файла .vlf.";
+      "На адрес <b>" + email + "</b> с адреса <a href='mailto:alias@villife.root.sx'>alias@villife.root.sx</a> придёт письмо: в нём будут дата запроса, список экспортированных разделов, причина задержки, если она была, и ссылка на скачивание файла .vlf.";
     let current = 0;
     const timer = setInterval(() => {
       if (current >= steps.length - 1) {
