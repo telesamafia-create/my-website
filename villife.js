@@ -178,7 +178,6 @@
   const bigAvatar = document.getElementById("profile-big-avatar");
   const firstInput = document.getElementById("profile-first");
   const lastInput = document.getElementById("profile-last");
-  const photoInput = document.getElementById("photo-input");
   const langSelect = document.getElementById("profile-language");
   const themeButtons = Array.from(document.querySelectorAll(".theme-choice"));
 
@@ -249,21 +248,6 @@
         section.classList.toggle("active", section.dataset.panelSection === tab.dataset.panelTab);
       });
     });
-  });
-
-  document.getElementById("choose-photo").addEventListener("click", () => photoInput.click());
-  photoInput.addEventListener("change", () => {
-    const file = photoInput.files && photoInput.files[0];
-    if (!file || !account) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      account.photo = String(reader.result);
-      saveAccount();
-      renderAvatar(bigAvatar, account);
-      const headerAvatar = document.getElementById("header-avatar");
-      if (headerAvatar) renderAvatar(headerAvatar, account);
-    };
-    reader.readAsDataURL(file);
   });
 
   document.querySelectorAll('[data-panel-section="profile"] .profile-save').forEach(button => {
